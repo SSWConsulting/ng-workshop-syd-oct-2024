@@ -2,7 +2,7 @@ import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Company } from '../company';
 import { CompanyService } from '../company.service';
-import { Observable } from 'rxjs';
+import { finalize, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'fbc-company-list',
@@ -21,6 +21,10 @@ export class CompanyListComponent implements OnInit {
   }
 
   getCompanies() {
-    this.companies$ = this.companyService.getCompanies();
+    this.companies$ = this.companyService.getCompanies()
+      .pipe(
+        tap(companies => console.log('TAP - Component', companies)),
+        finalize(() => console.log('Finalize: Complete'))
+      );
   }
 }
