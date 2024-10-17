@@ -13,13 +13,14 @@ import { CompanyService } from '../company.service';
 export class CompanyListComponent implements OnInit {
   companies: Company[] = [];
 
-  constructor(private companyService: CompanyService) {}
+  constructor(private companyService: CompanyService) { }
 
   ngOnInit() {
     this.getCompanies();
   }
 
   getCompanies() {
-    this.companies = this.companyService.getCompanies();
+    this.companyService.getCompanies()
+      .subscribe(companies => this.companies = companies);
   }
 }
