@@ -3,11 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { Company } from '../company';
 import { CompanyService } from '../company.service';
 import { finalize, Observable, tap } from 'rxjs';
+import { CompanyTableComponent } from "../company-table/company-table.component";
 
 @Component({
   selector: 'fbc-company-list',
   standalone: true,
-  imports: [JsonPipe, AsyncPipe],
+  imports: [JsonPipe, AsyncPipe, CompanyTableComponent],
   templateUrl: './company-list.component.html',
   styleUrl: './company-list.component.scss',
 })
