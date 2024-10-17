@@ -20,7 +20,12 @@
       <td>{{ company.phone }}</td>
       <td class="company-actions">
         <button class="btn btn-primary">Edit</button>
-        <button class="btn btn-outline-danger">Delete</button>
+        <button
+          class="btn btn-outline-danger"
+          (click)="deleteCompany(company.id)"
+        >
+          Delete
+        </button>
       </td>
     </tr>
     }

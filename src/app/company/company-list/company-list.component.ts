@@ -27,4 +27,10 @@ export class CompanyListComponent implements OnInit {
         finalize(() => console.log('Finalize: Complete'))
       );
   }
+
+  deleteCompany(companyId: number): void {
+    console.log("Delete company Component", companyId);
+    this.companyService.deleteCompany(companyId)
+      .subscribe(_ => this.getCompanies());
+  }
 }
