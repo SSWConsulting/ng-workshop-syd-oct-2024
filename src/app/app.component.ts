@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CompanyListComponent } from "./company/company-list/company-list.component";
 
 @Component({
   selector: 'fbc-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [CompanyListComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'firebootcamp-crm';
