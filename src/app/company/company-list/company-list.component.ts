@@ -1,17 +1,18 @@
-import { JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Company } from '../company';
 import { CompanyService } from '../company.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'fbc-company-list',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [JsonPipe, AsyncPipe],
   templateUrl: './company-list.component.html',
   styleUrl: './company-list.component.scss',
 })
 export class CompanyListComponent implements OnInit {
-  companies: Company[] = [];
+  companies$!: Observable<Company[]>;
 
   constructor(private companyService: CompanyService) { }
 
@@ -20,7 +21,6 @@ export class CompanyListComponent implements OnInit {
   }
 
   getCompanies() {
-    this.companyService.getCompanies()
-      .subscribe(companies => this.companies = companies);
+    this.companies$ = this.companyService.getCompanies();
   }
 }
