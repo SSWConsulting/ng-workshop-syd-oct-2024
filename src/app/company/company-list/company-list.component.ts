@@ -1,5 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Company } from '../company';
 
 @Component({
   selector: 'fbc-company-list',
@@ -9,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './company-list.component.scss'
 })
 export class CompanyListComponent implements OnInit {
-  companies: any[] = [];
+  companies: Company[] = [];
 
   ngOnInit() {
     this.getCompanies();
@@ -17,9 +18,9 @@ export class CompanyListComponent implements OnInit {
 
   getCompanies() {
     this.companies = [
-      { id: 1, name: 'Company 1', phone: '123-456-7890' },
-      { id: 2, name: 'Company 2', phone: '123-456-7890' },
-      { id: 3, name: 'Company 3', phone: '123-456-7890' },
+      { name: 'Company 1', phone: '123-456-7890', email: 'foo@123' },
+      { name: 'Company 2', phone: '123-456-7890', email: 'foo@123' },
+      { name: 'Company 3', phone: '123-456-7890', email: 'foo@123' },
     ];
   }
 }
