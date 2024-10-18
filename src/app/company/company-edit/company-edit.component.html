@@ -1,30 +1,42 @@
 <form [formGroup]="companyFormGroup">
   <div class="form-group mb-4">
     <label for="name">Name</label>
-    <input type="text" class="form-control" name="name" formControlName="name" />
+    <input
+      type="text"
+      class="form-control"
+      name="name"
+      formControlName="name"
+    />
 
-    @let nameControl = companyFormGroup.get('name');
+    @let nameControl = companyFormGroup.get("name");
     @if (nameControl?.touched) {
-      @if (nameControl?.hasError('required')) {
+      @if (nameControl?.hasError("required")) {
         <div class="alert alert-danger">Name is required</div>
       }
-      @if (nameControl?.hasError('minlength')) {
-        @let error = nameControl!.getError('minlength');
-        <div class="alert alert-danger">Name must be at least {{ error.requiredLength }} characters</div>
+      @if (nameControl?.hasError("minlength")) {
+        @let error = nameControl!.getError("minlength");
+        <div class="alert alert-danger">
+          Name must be at least {{ error.requiredLength }} characters
+        </div>
       }
     }
   </div>
 
   <div class="form-group mb-4">
     <label for="email">Email</label>
-    <input type="email" class="form-control" name="email" formControlName="email" />
+    <input
+      type="email"
+      class="form-control"
+      name="email"
+      formControlName="email"
+    />
 
-    @let emailControl = companyFormGroup.get('email');
+    @let emailControl = companyFormGroup.get("email");
     @if (emailControl?.touched) {
-      @if (emailControl?.hasError('required')) {
+      @if (emailControl?.hasError("required")) {
         <div class="alert alert-danger">Email is required</div>
       }
-      @if (emailControl?.hasError('email')) {
+      @if (emailControl?.hasError("email")) {
         <div class="alert alert-danger">Email must be an email</div>
       }
     }
@@ -32,11 +44,18 @@
 
   <div class="form-group mb-4">
     <label for="phone">Phone</label>
-    <input type="text" class="form-control" name="phone" formControlName="phone" />
+    <input
+      type="text"
+      class="form-control"
+      name="phone"
+      formControlName="phone"
+    />
   </div>
 
   <div class="form-group text-end mb-4">
-    <button type="button" class="btn btn-primary" (click)="saveCompany()">Save</button>
+    <button type="button" class="btn btn-primary" (click)="saveCompany()">
+      Save
+    </button>
   </div>
 </form>
 
