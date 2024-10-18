@@ -2,8 +2,9 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { CompanyListComponent } from "./company/company-list/company-list.component";
 import { RouterModule } from '@angular/router';
-import { CompanyService } from './company/company.service';
-import { map } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectCompanyCount } from './+state/company.selectors';
+import { CompanyActions } from './+state/company.actions';
 
 @Component({
   selector: 'fbc-root',
@@ -14,9 +15,11 @@ import { map } from 'rxjs';
 })
 export class AppComponent {
   title = 'firebootcamp-crm';
+  store$ = inject(Store);
 
-  companyService = inject(CompanyService);
-  companyCount$ = this.companyService.getCompanies().pipe(
-    map(companies => companies.length)
-  );
+  companyCount$ = this.store$.select(selectCompanyCount);
+
+  ngOnInit(): void {
+    this.store$.dispatch(CompanyActions.loadCompanies());
+  }
 }

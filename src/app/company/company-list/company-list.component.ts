@@ -1,10 +1,10 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { Company } from '../company';
-import { CompanyService } from '../company.service';
-import { finalize, Observable, tap } from 'rxjs';
+import { Component, inject } from '@angular/core';
 import { CompanyTableComponent } from '../company-table/company-table.component';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectCompanies } from '../../+state/company.selectors';
+import { CompanyActions } from '../../+state/company.actions';
 
 @Component({
   selector: 'fbc-company-list',
@@ -14,15 +14,12 @@ import { RouterLink, RouterModule } from '@angular/router';
   styleUrl: './company-list.component.scss',
 })
 export class CompanyListComponent {
-  private companyService = inject(CompanyService);
+  private store = inject(Store);
 
-  companies$ = this.companyService.getCompanies().pipe(
-    tap((companies) => console.log('TAP - Component', companies)),
-    finalize(() => console.log('Finalize: Complete')),
-  );
+  companies$ = this.store.select(selectCompanies);
 
   deleteCompany(companyId: number): void {
     console.log('Delete company Component', companyId);
-    this.companyService.deleteCompany(companyId).subscribe();
+    this.store.dispatch(CompanyActions.deleteCompany({ id: companyId }));
   }
 }
