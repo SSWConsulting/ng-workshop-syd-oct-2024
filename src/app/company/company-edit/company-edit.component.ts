@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Company } from '../company';
 import { CompanyService } from '../company.service';
 import { Router } from '@angular/router';
@@ -8,17 +8,23 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'fbc-company-edit',
   standalone: true,
-  imports: [FormsModule, JsonPipe],
+  imports: [ReactiveFormsModule, JsonPipe],
   templateUrl: './company-edit.component.html',
   styleUrl: './company-edit.component.scss',
 })
 export class CompanyEditComponent {
   private companyService = inject(CompanyService);
   private router = inject(Router);
-  company: Company = { id: 0, name: '', email: '', phone: '' };
+
+  companyFormGroup = new FormGroup({
+    name: new FormControl('', Validators.required),
+    email: new FormControl(''),
+    phone: new FormControl(''),
+  })
 
   saveCompany() {
-    this.companyService.addCompany(this.company).subscribe((company) => {
+    const company = this.companyFormGroup.value as any as Company;
+    this.companyService.addCompany(company).subscribe((company) => {
       this.router.navigate(['/company/list']);
     });
   }
