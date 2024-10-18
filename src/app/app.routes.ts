@@ -1,23 +1,24 @@
 import { Routes } from '@angular/router';
-import { CompanyListComponent } from './company/company-list/company-list.component';
-import { CompanyEditComponent } from './company/company-edit/company-edit.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 
 export const routes: Routes = [
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+  },
   {
     path: 'company',
     children: [
       {
         path: 'list',
-        component: CompanyListComponent
+        loadComponent: () => import('./company/company-list/company-list.component').then(m => m.CompanyListComponent)
       },
       {
         path: 'add',
-        component: CompanyEditComponent
+        loadComponent: () => import('./company/company-edit/company-edit.component').then(m => m.CompanyEditComponent)
       },
       {
         path: 'edit/:id',
-        component: CompanyEditComponent
+        loadComponent: () => import('./company/company-edit/company-edit.component').then(m => m.CompanyEditComponent)
       }
     ]
   },
@@ -28,6 +29,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    component: NotFoundComponent
+    loadComponent: () => import('./not-found/not-found.component').then(m => m.NotFoundComponent)
   }
 ];
