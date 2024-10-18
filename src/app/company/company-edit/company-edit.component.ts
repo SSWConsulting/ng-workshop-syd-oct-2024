@@ -5,6 +5,10 @@ import { Company } from '../company';
 import { CompanyService } from '../company.service';
 import { Router } from '@angular/router';
 
+export type CompanyFormGroup = {
+  [key in keyof Company]: FormControl<Company[key] | null>;
+}
+
 @Component({
   selector: 'fbc-company-edit',
   standalone: true,
@@ -16,14 +20,29 @@ export class CompanyEditComponent {
   private companyService = inject(CompanyService);
   private router = inject(Router);
 
-  companyFormGroup = new FormGroup({
+  companyFormGroup = new FormGroup<CompanyFormGroup>({
+    id: new FormControl(0),
     name: new FormControl('', Validators.required),
     email: new FormControl(''),
     phone: new FormControl(''),
   })
 
   saveCompany() {
-    const company = this.companyFormGroup.value as any as Company;
+    if (this.companyFormGroup.invalid) {
+      return;
+    }
+
+    // const company = {
+    //   id: this.companyFormGroup.value.id,
+    //   name: this.companyFormGroup.value.name,
+    //   email: this.companyFormGroup.value.email,
+    //   phone: this.companyFormGroup.value.phone,
+    // } as Company;
+
+    const company = {
+      ...this.companyFormGroup.value,
+    } as Company;
+
     this.companyService.addCompany(company).subscribe((company) => {
       this.router.navigate(['/company/list']);
     });
