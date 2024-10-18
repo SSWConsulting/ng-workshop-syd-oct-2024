@@ -1,4 +1,4 @@
-import { JsonPipe } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Company } from '../company';
@@ -12,7 +12,7 @@ export type CompanyFormGroup = {
 @Component({
   selector: 'fbc-company-edit',
   standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe],
+  imports: [CommonModule, ReactiveFormsModule, JsonPipe],
   templateUrl: './company-edit.component.html',
   styleUrl: './company-edit.component.scss',
 })
@@ -22,8 +22,8 @@ export class CompanyEditComponent {
 
   companyFormGroup = new FormGroup<CompanyFormGroup>({
     id: new FormControl(0),
-    name: new FormControl('', Validators.required),
-    email: new FormControl(''),
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl(''),
   })
 
