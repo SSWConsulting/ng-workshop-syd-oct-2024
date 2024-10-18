@@ -14,7 +14,7 @@
       <td>{{ company.email }}</td>
       <td>{{ company.phone }}</td>
       <td class="company-actions">
-        <button class="btn btn-primary">Edit</button>
+        <a class="btn btn-primary" [routerLink]="['../edit', company.id]">Edit</a>
         <button
           class="btn btn-outline-danger"
           (click)="deleteCompany(company.id)"

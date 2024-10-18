@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Company } from '../company';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'fbc-company-table',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './company-table.component.html',
   styleUrl: './company-table.component.scss'
 })
