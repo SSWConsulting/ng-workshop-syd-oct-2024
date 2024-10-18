@@ -28,6 +28,8 @@ export class CompanyEditComponent {
   })
 
   saveCompany() {
+    this.companyFormGroup.markAllAsTouched();
+
     if (this.companyFormGroup.invalid) {
       return;
     }
